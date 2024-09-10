@@ -13,10 +13,10 @@
 #include "show_bmp.h"
 
 
-int lcd_fd;
-int x, y;
-int touch_fd;
-int* FB;
+int lcd_fd;//显示屏文件描述符
+int x, y;//触摸屏坐标
+int touch_fd;//触摸屏文件描述符
+int* FB;//内存映射指针
 //测试用
 
 /*宏定义*/
