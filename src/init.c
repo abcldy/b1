@@ -1,43 +1,43 @@
 #include "main.h"
 
-/*ÏîÄ¿³õÊ¼»¯*/
+/*é¡¹ç›®åˆå§‹åŒ–*/
 int project_init()
 {
-    //LCDÎÄ¼ş³õÊ¼»¯
+    //LCDæ–‡ä»¶åˆå§‹åŒ–
     lcd_fd = open("/dev/fb0", O_RDWR);
     if (lcd_fd == -1)
     {
-        printf("LCDÎÄ¼ş´ò¿ªÊ§°Ü\n");
+        printf("LCDæ–‡ä»¶æ‰“å¼€å¤±è´¥\n");
         return -1;
     }
-    printf("LCDÎÄ¼ş´ò¿ªÍê³É\n");
+    printf("LCDæ–‡ä»¶æ‰“å¼€å®Œæˆ\n");
 
-    //´¥ÃşÆÁÎÄ¼ş³õÊ¼»¯
+    //è§¦æ‘¸å±æ–‡ä»¶åˆå§‹åŒ–
     touch_fd = open("/dev/input/event0", O_RDWR);
-    if (touch_fd == -1)
+    if(touch_fd == -1)
     {
-        printf("´ò¿ª´¥ÃşÆÁÎÄ¼şÊ§°Ü\n");
+        printf("æ‰“å¼€è§¦æ‘¸å±æ–‡ä»¶å¤±è´¥\n");
         return -1;
     }
-    printf("´ò¿ª´¥ÃşÆÁÎÄ¼şÍê³É\n");
+    printf("æ‰“å¼€è§¦æ‘¸å±æ–‡ä»¶å®Œæˆ\n");
 
-    //ÄÚ´æÓ³Éä³õÊ¼»¯
-    FB = mmap(NULL, 800 * 480 * 4, PROT_READ | PROT_WRITE, MAP_SHARED,
-        lcd_fd, 0);
+    //å†…å­˜æ˜ å°„åˆå§‹åŒ–
+    FB = mmap( NULL , 800*480*4 , PROT_READ | PROT_WRITE, MAP_SHARED,
+                  lcd_fd, 0);
 
     return 0;
 }
 
-/*ÏîÄ¿ÊÍ·Å*/
+/*é¡¹ç›®é‡Šæ”¾*/
 int project_free()
 {
-    //½â³ıÄÚ´æÓ³Éä
-    munmap(FB, 800 * 480 * 4);
+    //è§£é™¤å†…å­˜æ˜ å°„
+    munmap(FB, 800*480*4);
 
-    //¹Ø±ÕlcdÎÄ¼ş
+    //å…³é—­lcdæ–‡ä»¶
     close(lcd_fd);
 
-    //¹Ø±Õ´¥ÃşÆÁÎÄ¼ş
+    //å…³é—­è§¦æ‘¸å±æ–‡ä»¶
     close(touch_fd);
 
     return 0;
