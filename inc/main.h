@@ -12,11 +12,11 @@
 #include <linux/input.h>
 #include "show_bmp.h"
 
-/*ȫ�ֱ���*/
-int lcd_fd;//LCD�ļ�������
-int x, y;//����������
-int touch_fd;//�������ļ�������
-int* FB;//�ڴ�ӳ��ָ��
+
+int lcd_fd;
+int x, y;
+int touch_fd;
+int* FB;
 
 /*宏定义*/
 
