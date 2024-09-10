@@ -64,7 +64,7 @@ int show_1152000bmp(char *pathname, int *show_1152000bmp_fd)
 	return 0;
 }
 
-int show_location_bmp(char *pathname,int lcd_x_coordinates, int lcd_y_coordinates, int wide, int height,int *show_bmp_lcd_mmap) 
+int show_location_bmp(char *pathname,int lcd_x_coordinates, int lcd_y_coordinates,int *show_bmp_lcd_mmap) 
 {
 	int i;
 	int ret;
@@ -81,6 +81,13 @@ int show_location_bmp(char *pathname,int lcd_x_coordinates, int lcd_y_coordinate
 		printf("show_location_bmp(), open bmp failed\n");
 		return -1;
 	}
+
+	int wide,height;//获取图片的宽高
+	lseek(bmp_fd,18,SEEK_SET);
+	read(bmp_fd,&wide,4);
+	lseek(bmp_fd,22,SEEK_SET);
+	read(bmp_fd,&height,4);
+	printf("W:%d,H:%d\n",wide,height);	
 
 	ret = lseek(bmp_fd,54,SEEK_SET);//2、跳过bmp图片的前54个位置
 	if(ret == -1)
