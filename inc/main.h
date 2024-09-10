@@ -1,8 +1,8 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
-/*ÅĞ¶ÏÍ·ÎÄ¼şÊÇ·ñ±»ÖØ¸´°üº¬*/
+/*åˆ¤æ–­å¤´æ–‡ä»¶æ˜¯å¦è¢«é‡å¤åŒ…å«*/
 
-/*Í·ÎÄ¼ş*/
+/*å¤´æ–‡ä»¶*/
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -12,33 +12,28 @@
 #include <linux/input.h>
 #include "show_bmp.h"
 
-/*È«¾Ö±äÁ¿*/
-int lcd_fd;//LCDÎÄ¼şÃèÊö·û
-int x, y;//´¥ÃşÆÁ×ø±ê
-int touch_fd;//´¥ÃşÆÁÎÄ¼şÃèÊö·û
-int* FB;//ÄÚ´æÓ³ÉäÖ¸Õë
+/*å…¨å±€å˜é‡*/
+int lcd_fd;//LCDæ–‡ä»¶æè¿°ç¬¦
+int x,y;//è§¦æ‘¸å±åæ ‡
+int touch_fd;//è§¦æ‘¸å±æ–‡ä»¶æè¿°ç¬¦
+int *FB;//å†…å­˜æ˜ å°„æŒ‡é’ˆ
 
-/*ºê¶¨Òå*/
+/*å®å®šä¹‰*/
 
-/*½á¹¹ÌåºÍ½á¹¹Ìå¶¨Òå*/
-struct input_event touch;//´¥ÃşÆÁ
+/*ç»“æ„ä½“å’Œç»“æ„ä½“å®šä¹‰*/
+struct input_event touch;//è§¦æ‘¸å±
 
-///*º¯ÊıÉùÃ÷*/
-//int project_init();/*ÏîÄ¿³õÊ¼»¯*/
-//int project_show();/*Ö÷»úÃæº¯Êı*/
-//int project_free();/*ÏîÄ¿ÊÍ·Å*/
-//void project_touch();/*´¥ÃşÆÁº¯Êı*/
-//void show_bmp();/*ÊÖ¶¯ÇĞ»»*/
-//int project_music();/*ÒôÀÖº¯Êı*/
-//int project_video();/*ÊÓÆµº¯Êı*/
-//int video_inti();/*¹ÜµÀÎÄ¼şº¯Êı*/
+/*å‡½æ•°å£°æ˜*/
+int project_init();/*é¡¹ç›®åˆå§‹åŒ–*/
+int project_free();/*é¡¹ç›®é‡Šæ”¾*/
+int interface();/*ä¸»æœºé¢å‡½æ•°*/
+void show_bmp();/*å›¾ç‰‡å±•ç¤º*/
+// void project_touch();/*è§¦æ‘¸å±å‡½æ•°*/
 
+// int project_music();/*éŸ³ä¹å‡½æ•°*/
+// int project_video();/*è§†é¢‘å‡½æ•°*/
+// int video_inti();/*ç®¡é“æ–‡ä»¶å‡½æ•°*/
 
-int project_init();/*ÏîÄ¿³õÊ¼»¯*/
-int project_free();/*ÏîÄ¿ÊÍ·Å*/
+/*æšä¸¾ï¼Œè”åˆä½“*/
 
-
-
-/*Ã¶¾Ù£¬ÁªºÏÌå*/
-
-#endif //Ìõ¼ş±àÒë½áÊø
+#endif //æ¡ä»¶ç¼–è¯‘ç»“æŸ
