@@ -17,6 +17,7 @@ int lcd_fd;
 int x, y;
 int touch_fd;
 int* FB;
+//测试用
 
 /*宏定义*/
 
