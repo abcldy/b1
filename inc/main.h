@@ -17,7 +17,7 @@ int lcd_fd;//LCD文件描述符
 int x,y;//触摸屏坐标
 int touch_fd;//触摸屏文件描述符
 int *FB;//内存映射指针
-//测试用
+
 
 /*宏定义*/
 
@@ -31,6 +31,8 @@ int interface();/*主机面函数*/
 void show_bmp();/*图片展示*/
 void project_touch();/*触摸屏函数*/
 int flybird();/*game2*/
+int game();
+int show_1152000bmp();
 // int project_music();/*音乐函数*/
 // int project_video();/*视频函数*/
 // int video_inti();/*管道文件函数*/
