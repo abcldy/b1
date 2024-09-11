@@ -177,7 +177,7 @@ void ShowNum(int x0,int y0,int num,int len)
 	while(num)
 	{
 		dbgprintf;
-		sprintf(path,"./bmp/number/green_paper_blue_number16x24/%d.bmp",num%10);//green_paper_blue_number
+		sprintf(path,"gpbn/%d.bmp",num%10);//green_paper_blue_number
 		dbgprintf;
 		ShowBmp(700 - i*16,100,path);
 		dbgprintf;

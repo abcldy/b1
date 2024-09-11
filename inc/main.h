@@ -37,8 +37,8 @@ void game();
 int show_1152000bmp();
 void ballgame();
 
-void music();//音乐函数
-
+void music1();//音乐函数
+int video();
 // int project_music();/*音乐函数*/
 // int project_video();/*视频函数*/
 // int video_inti();/*管道文件函数*/
