@@ -3,8 +3,9 @@
 int interface()
 {
     //主界面图片
-    
-     while (1)
+    show_1152000bmp("interface.bmp", FB);
+
+     while(1)
     {
         show_1152000bmp("interface.bmp", FB);
 
@@ -13,14 +14,15 @@ int interface()
         //压力值判断下
         if (touch.type == EV_KEY && touch.code == BTN_TOUCH && touch.value == 0)//
         {
-            //4.为所欲为
+            
             printf("(%d,%d)\n",x,y);
 
-            // //电子相册
-            // if(x > 0 && x < 200 && y > 0 && y < 480)
-            // {
-                
-            // }
+            //电子相册
+            if(x > 0 && x < 200 && y > 0 && y < 480)
+            {
+                printf("open album\n");
+                photo_album();/*相册函数*/
+            }
 
             
             //音乐播放器
