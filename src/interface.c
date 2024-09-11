@@ -3,10 +3,11 @@
 int interface()
 {
     //主界面图片
-    show_1152000bmp("interface.bmp", FB);
-
+    
      while (1)
     {
+        show_1152000bmp("interface.bmp", FB);
+
         //触摸屏函数
         project_touch();
         //压力值判断下
@@ -39,7 +40,9 @@ int interface()
             //游戏
             if(x > 600 && x < 800 && y > 0 && y < 480)
             {
+               
                game();
+               
             }
             
         }
