@@ -11,6 +11,7 @@
 #include <sys/mman.h>
 #include <linux/input.h>
 #include "show_bmp.h"
+#include <string.h>
 
 /*全局变量*/
 int lcd_fd;//LCD文件描述符
