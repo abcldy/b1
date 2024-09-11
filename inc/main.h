@@ -37,7 +37,7 @@ int flybird();/*game2*/
 void game();
 int show_1152000bmp();
 void ballgame();
-
+int photo_album();//相册函数
 void music1();//音乐函数
 int video();
 // int project_music();/*音乐函数*/
