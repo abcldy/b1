@@ -1,8 +1,8 @@
 #include"main.h"
 #define NUM 3
-char * arr_bmpname[5] = {"111.bmp","113.bmp","gameover.bmp"};//图片名
+char * arr_bmpname[NUM] = {"goball.bmp","111.bmp","gameover.bmp"};//图片名
 int i = 0;//记录此刻播放的图片
-int j = 0;//记录此前播放的图片 
+
 void ppt()
 {
     
@@ -115,22 +115,21 @@ int touchscreen()
 				}
 			}
 		}
-        _x = x; _y = y;
+       
 
         if(i == -1){i = NUM - 1;}
-        if(i == 5){i = 0;}
+        if(i == NUM){i = 0;}
 
-        j = i;
-        usleep(300000);//延时0.3s
+        
+        usleep(3000);//延迟1ms
         if(x <= 40 && y <= 40)
         {
             printf("退出循环\n");
             break;
         }
-        if(i == j){continue;}
-        printf("i = %d\n",i);
-        printf("j = %d\n",j);
-        j = i;
+        show_1152000bmp(arr_bmpname[i],FB);
+        printf("i = %d\n",i);   
+
 	}
 	  
 }
