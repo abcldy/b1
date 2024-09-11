@@ -8,15 +8,17 @@
 #include <linux/input.h>
 #include <pthread.h>
 
+#include "main.h"
+
 int show_bmp(char const* name);
-int event_xy(int* x, int* y);
-int show_hua(int t_x);
+
+int show_hua(int t_x0);
 int event_init();
 int lcd_init();
-int xc();
-int xc1();
+int x0c();
+int x0c1();
 int music();
-int musicplay();
+
 int sp();
 int sp1();
 int gameball();
@@ -24,13 +26,13 @@ void* Move_Ball(void* arg);
 int ban_hua();
 int gameover();
 void* Touch_Ctrl_Plate(void* arg);
-int myregister();
+
 int login();
 int login1();
 int desktop();
 void ballgame();
 
-int x, y, j, n, m = 0;
+int x0, yy, j, n, m = 0;
 char c;
 char bmp[6] = "1.bmp";
 int mflag = 0;
@@ -41,7 +43,7 @@ int event_fd;
 int lcd_fd;
 int* p;
 
-int q_x = 0;
+int q_x0 = 0;
 int gover = 0;
 
 //触摸屏初始化
@@ -78,7 +80,7 @@ int gameball()
 
         if (gover == 1)
         {
-            printf("666");
+            
             show_bmp("goball.bmp");
             pthread_cancel(P_ID);
             pthread_cancel(Q_ID);
@@ -96,25 +98,25 @@ void* Move_Ball(void* arg)
     {
         for (i = 0; i < 800; i++)
         {
-            p[j * 800 + i] = 0x00000000;
+            p[j * 800 + i] = 0x000000000;
         }
     }
 
-    int x = 400, y = 240, r = 50, flag_x = 0, flag_y = 0;
+    int x0 = 400, yy = 240, r = 50, flag_x0 = 0, flag_yy = 0;
 
     while (1)
     {
-        for (j = y - r; j <= y + r; j++)
+        for (j = yy - r; j <= yy + r; j++)
         {
-            for (i = x - r; i <= x + r; i++)
+            for (i = x0 - r; i <= x0 + r; i++)
             {
-                if ((i - x) * (i - x) + (j - y) * (j - y) < r * r)
+                if ((i - x0) * (i - x0) + (j - yy) * (j - yy) < r * r)
                 {
-                    p[800 * j + i] = 0x000000ff;
+                    p[800 * j + i] = 0x0000000ff;
                 }
                 else
                 {
-                    p[800 * j + i] = 0x00000000;
+                    p[800 * j + i] = 0x000000000;
                 }
             }
         }
@@ -122,28 +124,28 @@ void* Move_Ball(void* arg)
 
 
         usleep(3000);
-        if (y - r == 0)//判断球碰到上面墙壁
-            flag_y = 1;
-        if (y + r == 400 && x<q_x + 50 && x>q_x - 50)//判断球碰到木板
-            flag_y = 0;
-        if (y + r > 400)
+        if (yy - r == 0)//判断球碰到上面墙壁
+            flag_yy = 1;
+        if (yy + r == 400 && x0<q_x0 + 50 && x0>q_x0 - 50)//判断球碰到木板
+            flag_yy = 0;
+        if (yy + r > 400)
         {
             gover = 1;
             break;
         }
-        if (x - r == 0)
-            flag_x = 1;
-        if (x + r == 800)
-            flag_x = 0;
+        if (x0 - r == 0)
+            flag_x0 = 1;
+        if (x0 + r == 800)
+            flag_x0 = 0;
 
-        if (flag_y == 0)
-            y--;
-        if (flag_y == 1)
-            y++;
-        if (flag_x == 0)
-            x--;
-        if (flag_x == 1)
-            x++;
+        if (flag_yy == 0)
+            yy--;
+        if (flag_yy == 1)
+            yy++;
+        if (flag_x0 == 0)
+            x0--;
+        if (flag_x0 == 1)
+            x0++;
     }
     return NULL;
 }
@@ -151,17 +153,17 @@ void* Move_Ball(void* arg)
 //木板滑动
 int ban_hua()
 {
-    for (int y = 400; y < 430; y++)
+    for (int yy = 400; yy < 430; yy++)
     {
-        for (int x = 0; x < 800; x++)
+        for (int x0 = 0; x0 < 800; x0++)
         {
-            if (x >= q_x - 50 && x <= q_x + 50)//小木板
+            if (x0 >= q_x0 - 50 && x0 <= q_x0 + 50)//小木板
             {
-                p[800 * y + x] = 0x00ff0000;
+                p[800 * yy + x0] = 0x000ff0000;
             }
             else//将木板经过或者没有经过的地方重新变回黑色
             {
-                p[800 * y + x] = 0x00000000;
+                p[800 * yy + x0] = 0x000000000;
             }
         }
     }
@@ -181,18 +183,18 @@ void* Touch_Ctrl_Plate(void* arg)
 
     //存放触摸屏数据
     struct input_event ts;
-    int x = 0, y = 0;
+    int x0 = 0, yy = 0;
     while (1)
     {
         read(event_fd, &ts, sizeof(ts));
 
         if (ts.type == EV_ABS && ts.code == ABS_X)
         {
-            q_x = ts.value;
+            q_x0 = ts.value;
         }
         if (ts.type == EV_ABS && ts.code == ABS_Y)
         {
-            y = ts.value;
+            yy = ts.value;
         }
         ban_hua();
     }
@@ -204,6 +206,23 @@ int gameover()
 {
     show_bmp("goball.bmp");
     
+    while(1)
+    {
+        project_touch();
+        //压力值判断下
+        if (touch.type == EV_KEY && touch.code == BTN_TOUCH && touch.value == 0)//
+        {
+            //4.为所欲为
+            if(x>271&&x<346 && y>367&&y<441)
+            {
+                ballgame();
+            }
+            if(x>469&&x<551 && y>367&&y<442)
+            {
+                interface();
+            }
+        }
+    }
 }
 
 int show_bmp(char const* name)
@@ -230,12 +249,12 @@ int show_bmp(char const* name)
         bmp[i] = buf[i * 3] << 0 | buf[i * 3 + 1] << 8 | buf[i * 3 + 2] << 16;
     }
 
-    int x, y;
-    for (y = 0; y < 480; y++)//优化算法，解决图片颠倒问题
+    int x0, yy;
+    for (yy = 0; yy < 480; yy++)//优化算法，解决图片颠倒问题
     {
-        for (x = 0; x < 800; x++)
+        for (x0 = 0; x0 < 800; x0++)
         {
-            *(p + 800 * (479 - y) + x) = bmp[800 * y + x];
+            *(p + 800 * (479 - yy) + x0) = bmp[800 * yy + x0];
         }
     }
 
@@ -258,10 +277,10 @@ void ballgame()
                 point(j, i, Black);
             }
         }
-        show_circle(bp->y0, bp->x0, bp->r, Red);
+        show_circle(bp->yy0, bp->x00, bp->r, Red);
         ball_move(bp);
     }
-    lcd_destroy();*/
+    lcd_destroyy();*/
 
     // 触摸屏初始化
     event_init();
