@@ -78,7 +78,8 @@ int gameball()
 
         if (gover == 1)
         {
-            show_bmp("gameover_ball.bmp");
+            printf("666");
+            show_bmp("goball.bmp");
             pthread_cancel(P_ID);
             pthread_cancel(Q_ID);
             gameover();
@@ -201,7 +202,7 @@ void* Touch_Ctrl_Plate(void* arg)
 //游戏结束
 int gameover()
 {
-    show_bmp("gameover_ball.bmp");
+    show_bmp("goball.bmp");
     
 }
 
