@@ -13,7 +13,7 @@ int project_init()
     printf("LCD文件打开完成\n");
 
     //触摸屏文件初始化
-    touch_fd = open("/dev/input/event0", O_RDWR);
+    touch_fd = open("/dev/input/event0", O_RDONLY);
     if(touch_fd == -1)
     {
         printf("打开触摸屏文件失败\n");
@@ -22,8 +22,7 @@ int project_init()
     printf("打开触摸屏文件完成\n");
 
     //内存映射初始化
-    FB = mmap( NULL , 800*480*4 , PROT_READ | PROT_WRITE, MAP_SHARED,
-                  lcd_fd, 0);
+    FB = mmap( NULL , 800*480*4 , PROT_READ | PROT_WRITE, MAP_SHARED,lcd_fd, 0);
 
     return 0;
 }
