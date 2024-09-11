@@ -70,10 +70,7 @@ int show_location_bmp(char *pathname,int lcd_x_coordinates, int lcd_y_coordinate
 	int ret;
 	int x, y;
 	
-	char bmp_buf[wide*height*3];
-	int  new_buf[wide*height];
-	bzero(bmp_buf, sizeof(bmp_buf));
-	bzero(new_buf, sizeof(new_buf));
+
 
 	int bmp_fd = open(pathname, O_RDONLY);//1、打开BMP格式图片
 	if(bmp_fd == -1)
@@ -89,6 +86,13 @@ int show_location_bmp(char *pathname,int lcd_x_coordinates, int lcd_y_coordinate
 	read(bmp_fd,&height,4);
 	printf("W:%d,H:%d\n",wide,height);	
 
+
+	char bmp_buf[wide*height*3];
+	int  new_buf[wide*height];
+	bzero(bmp_buf, sizeof(bmp_buf));
+	bzero(new_buf, sizeof(new_buf));
+
+	
 	ret = lseek(bmp_fd,54,SEEK_SET);//2、跳过bmp图片的前54个位置
 	if(ret == -1)
 	{
