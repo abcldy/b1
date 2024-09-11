@@ -9,6 +9,6 @@
 
 int main()
 {
-    music();//音乐函数测试
+    music();//音乐函数
     return 0;
 }

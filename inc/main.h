@@ -10,14 +10,15 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <linux/input.h>
-#include "show_bmp.h"
+#include<string.h>
+
 
 /*全局变量*/
 int lcd_fd;//LCD文件描述符
 int x,y;//触摸屏坐标
 int touch_fd;//触摸屏文件描述符
 int *FB;//内存映射指针
-//测试用
+
 
 /*宏定义*/
 
@@ -29,7 +30,9 @@ int project_init();/*项目初始化*/
 int project_free();/*项目释放*/
 int interface();/*主机面函数*/
 void show_bmp();/*图片展示*/
-// void project_touch();/*触摸屏函数*/
+void project_touch();/*触摸屏函数*/
+
+void music(char* musicname);//音乐函数
 
 // int project_music();/*音乐函数*/
 // int project_video();/*视频函数*/
