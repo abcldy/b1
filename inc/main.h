@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <linux/input.h>
+#include"stdlib.h"
 #include <string.h>
 
 /*全局变量*/
@@ -17,7 +18,7 @@ int lcd_fd;//LCD文件描述符
 int x,y;//触摸屏坐标
 int touch_fd;//触摸屏文件描述符
 int *FB;//内存映射指针
-char* arr[4][100];//音乐名
+//char * arr_bmpname[5] = {"111.bmp","112.bmp","113.bmp","bp.bmp","../b1.bmp"};//图片名
 
 
 /*宏定义*/
@@ -33,9 +34,10 @@ int show_location_bmp(char *pathname,int lcd_x_coordinates, int lcd_y_coordinate
 void project_touch();/*触摸屏函数*/
 int flybird();/*game2*/
 int game();
+int photo_album();/*相册函数*/
 int show_1152000bmp(char *pathname, int *show_1152000bmp_fd);
 // int project_music();/*音乐函数*/
-// int project_video();/*视频函数*/
+int project_video();/*视频函数*/
 // int video_inti();/*管道文件函数*/
 
 /*枚举，联合体*/

@@ -5,7 +5,7 @@ int interface()
     //主界面图片
     show_1152000bmp("interface.bmp", FB);
 
-     while (1)
+     while(1)
     {
         //触摸屏函数
         project_touch();
@@ -15,11 +15,12 @@ int interface()
             //4.为所欲为
             printf("(%d,%d)\n",x,y);
 
-            // //电子相册
-            // if(x > 0 && x < 200 && y > 0 && y < 480)
-            // {
-                
-            // }
+            //电子相册
+            if(x > 0 && x < 200 && y > 0 && y < 480)
+            {
+                printf("打开相册\n");
+                photo_album();/*相册函数*/
+            }
 
             
             // //音乐播放器
