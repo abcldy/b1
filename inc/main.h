@@ -17,6 +17,7 @@ int lcd_fd;//LCD文件描述符
 int x,y;//触摸屏坐标
 int touch_fd;//触摸屏文件描述符
 int *FB;//内存映射指针
+char* arr[4][100];//音乐名
 
 
 /*宏定义*/
@@ -28,7 +29,7 @@ struct input_event touch;//触摸屏
 int project_init();/*项目初始化*/
 int project_free();/*项目释放*/
 int interface();/*主机面函数*/
-void show_bmp();/*图片展示*/
+int show_location_bmp(char *pathname,int lcd_x_coordinates, int lcd_y_coordinates,int *show_bmp_lcd_mmap);/*图片展示*/
 void project_touch();/*触摸屏函数*/
 int flybird();/*game2*/
 void game();
