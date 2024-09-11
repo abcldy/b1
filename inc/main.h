@@ -32,6 +32,8 @@ int interface();/*主机面函数*/
 void show_bmp();/*图片展示*/
 void project_touch();/*触摸屏函数*/
 
+void music(char* musicname);//音乐函数
+
 // int project_music();/*音乐函数*/
 // int project_video();/*视频函数*/
 // int video_inti();/*管道文件函数*/

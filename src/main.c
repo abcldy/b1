@@ -9,6 +9,6 @@
 
 int main()
 {
-    printf("123456\n");
+    music();//音乐函数
     return 0;
 }
