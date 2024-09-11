@@ -2,7 +2,7 @@
 
 int interface()
 {
-    //zhihejfu
+    
 }
 
 
