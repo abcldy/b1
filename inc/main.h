@@ -4,6 +4,7 @@
 
 /*头文件*/
 #include <stdio.h>
+#include<stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -32,7 +33,7 @@ int interface();/*主机面函数*/
 void show_bmp();/*图片展示*/
 void project_touch();/*触摸屏函数*/
 
-void music(char* musicname);//音乐函数
+void music();//音乐函数
 
 // int project_music();/*音乐函数*/
 // int project_video();/*视频函数*/

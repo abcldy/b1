@@ -9,7 +9,7 @@ while(1)
         if(i==1)
         {
         /*播放音乐*/
-     system("mplayer music.mp3 &");
+     system("mplayer  /mnt/hgfs/share_data/project/music/music.mp3 &");
     
          }  
         if(i==2)
@@ -33,7 +33,7 @@ while(1)
     }
     
 
-    return 0;
+    
 }
 
 
