@@ -23,7 +23,7 @@ void xy()//消抖部分
 #define FIFO_PATH "/tmp/myFifo"
 
 
-int send_cmd_music(  int fd_fifo , const char * cmd )
+
 int send_cmd_music(  int fd_fifo , const char * cmd )
 {
 
@@ -89,7 +89,6 @@ int music1()
     int i=0;//输入
     //int n = 0;//播放/暂停
     int m = 0;//视频选择
-    show_1152000bmp("music2.bmp", FB);
     show_1152000bmp("music2.bmp", FB);
     while(1)//开始输入命令
     {
@@ -206,7 +205,6 @@ int music1()
         {      
             case 1:
             fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
-            fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
             break;
             case 2:
             send_cmd_music( fd_fifo , "pause\n" );//暂停
@@ -215,7 +213,6 @@ int music1()
             if(m == 0)
             {
                 system("killall -9 /dev/mplayer");//结束播放器
-                fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
                 fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
                 m = 1;
             }
