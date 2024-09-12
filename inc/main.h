@@ -41,7 +41,7 @@ int photo_album();//相册函数
 
 int video();
 
-int music1();//音乐函数
+int music();//音乐函数
 
 // int project_music();/*音乐函数*/
 int project_video();/*视频函数*/

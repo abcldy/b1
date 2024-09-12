@@ -28,7 +28,7 @@ int interface()
             //音乐播放器
             if(x > 200 && x < 400 && y > 0 && y < 480)
             {
-                music1();
+                music();
             }
 
             
