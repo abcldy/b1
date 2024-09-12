@@ -20,7 +20,6 @@ int interface()
             //电子相册
             if(x > 0 && x < 200 && y > 0 && y < 480)
             {
-                printf("open album\n");
                 photo_album();/*相册函数*/
             }
 

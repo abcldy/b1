@@ -9,20 +9,16 @@ void game()
     project_touch();
     if(touch.type == EV_KEY && touch.code == BTN_TOUCH && touch.value == 0)
     {
-        // printf("(%d,%d)\n",x,y);
-        
-    if(x>221&&x<600 && y>112&&y<192)
+
+    if(x>32&&x<118 && y>100&&y<151)
     {
         ballgame();
     }
-    if(x>233&&x<614 && y>253&&y<340)
+    if(x>27&&x<123 && y>207&&y<264)
     {
         flybird();//flybird.c
     }
-    // else
-    // {
-    //     break;
-    // }
+   
 
     }
     }

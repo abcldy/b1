@@ -76,8 +76,6 @@ int music1()
     show_1152000bmp("music2.bmp", FB);
     while(1)//开始输入命令
     {
-        printf("1.播放 2.暂停/继续 3.下一个视频 4.退出 5.快进5s 6.退回5s \n");
-    
     project_touch();
  
     if(x<400)
@@ -85,11 +83,11 @@ int music1()
     
         if(y<240)
         {
-            i=2;//暂停
+            i=1;//播放
         }
         else
         {
-            i=1;//播放
+            i=2;//暂停
         }
 
     }
@@ -112,7 +110,7 @@ int music1()
             fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
             break;
             case 2:
-            send_cmd_music( fd_fifo , "pause\n" );//暂停
+            send_cmd_music(fd_fifo,"pause\n");//暂停
             break;
             case 3:
             if(m == 0)
@@ -129,10 +127,10 @@ int music1()
             }
             break;
             case 4:
-            send_cmd_music( fd_fifo , "quit\n" );
+            send_cmd_music(fd_fifo,"quit\n");
             break;
             case 5:
-            send_cmd_music( fd_fifo , "seek +5\n" );
+            send_cmd_music(fd_fifo,"seek +5\n");
             case 6:
             send_cmd_music( fd_fifo , "seek -5\n" );
             break;

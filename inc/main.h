@@ -40,7 +40,7 @@ void ballgame();
 int photo_album();//相册函数
 
 int video();
-
+void jinru();
 int music1();//音乐函数
 
 // int project_music();/*音乐函数*/

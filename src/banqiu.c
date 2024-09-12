@@ -19,16 +19,16 @@ int x0c();
 int x0c1();
 int music();
 
-int sp();
-int sp1();
+
+
 int gameball();
 void* Move_Ball(void* arg);
 int ban_hua();
 int gameover();
 void* Touch_Ctrl_Plate(void* arg);
 
-int login();
-int login1();
+
+
 int desktop();
 void ballgame();
 
@@ -102,7 +102,7 @@ void* Move_Ball(void* arg)
         }
     }
 
-    int x0 = 400, yy = 240, r = 50, flag_x0 = 0, flag_yy = 0;
+    int x0 = 400, yy = 240, r = 30, flag_x0 = 0, flag_yy = 0;
 
     while (1)
     {
@@ -112,7 +112,7 @@ void* Move_Ball(void* arg)
             {
                 if ((i - x0) * (i - x0) + (j - yy) * (j - yy) < r * r)
                 {
-                    p[800 * j + i] = 0x0000000ff;
+                    p[800 * j + i] = 0x000f1939c;//f1939c
                 }
                 else
                 {
@@ -159,7 +159,7 @@ int ban_hua()
         {
             if (x0 >= q_x0 - 50 && x0 <= q_x0 + 50)//小木板
             {
-                p[800 * yy + x0] = 0x000ff0000;
+                p[800 * yy + x0] = 0x0002e317c;
             }
             else//将木板经过或者没有经过的地方重新变回黑色
             {

@@ -64,9 +64,11 @@ int video(int argc, char const *argv[])
 
 	// sprintf(buf,"/dev/mplayer -quiet -slave -zoom -x 600 -y 480 -input file=/tmp/myFifo & '/run/%s'",p->video);//拼接字符串到buf里
 	// fp=popen(buf,"r"); 
-    // 直接使用 popen 来播放音视频
-    FILE * fp = popen("/dev/mplayer /run/Redial.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");
 
+
+    //直接使用 popen 来播放音视频
+    FILE * fp = popen("/dev/mplayer /run/your_name.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");
+    
     /*
         /dev/mplayer  3.avi  -geometry 100:200 -zoom -x 400 -y 200 &
         -geometry 100:200   设置视频播放的位置 
@@ -100,7 +102,7 @@ int video(int argc, char const *argv[])
     show_location_bmp("bofangqi.bmp",600,0,FB);
     while(1)//开始输入命令
     {   
-        int m = 0;//视频选择
+        int m=0;//视频选择
         int n = 0;//播放/暂停
         // printf("1.播放 2.暂停/继续 3.下一个视频 4.退出 5.快进5s 6.退回5s \n");
         //触摸屏函数
@@ -108,21 +110,22 @@ int video(int argc, char const *argv[])
         //压力值判断下
         if (touch.type == EV_KEY && touch.code == BTN_TOUCH && touch.value == 0)
         {
-            if(x > 95 && x < 112 && y > 123 && y < 136)
+            if(x > 695 && x < 712 && y > 123 && y < 136)
             {
+                send_cmd(fd_fifo,"quit\n");
+                m=!m;
+                printf("%d\n",&m);
                 if(m==0)
                 {
-                    m=1;
-                    system("killall -9 mplayer");
                     
-                    fp = popen("/dev/mplayer /run/hml.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
+                     fp = popen("/dev/mplayer /run/your_name.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
+                
                 }
-                else
+                else if(m==1)
                 {
-                    m=0;
-                    system("killall -9 mplayer");
-                   
-                    fp = popen("/dev/mplayer /run/Redial.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
+                    
+                     fp = popen("/dev/mplayer /run/gui_mie.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
+
                 }
                
             }
@@ -130,22 +133,25 @@ int video(int argc, char const *argv[])
             {
                 send_cmd(fd_fifo,"seek -5\n");//后退5秒
             }
-            if(x > 97 && x < 112 && y > 284 && y < 298)
+            if(x > 690 && x < 720 && y > 270 && y < 300)
             {
+               send_cmd(fd_fifo,"quit\n");
+               m=!m;
+               printf("%d\n",&m);
                if(m==0)
-                {
-                    m=1;
-                    system("killall -9 mplayer");
+                { 
                     
-                    fp = popen("/dev/mplayer /run/hml.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
+                     fp = popen("/dev/mplayer /run/your_name.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
+                                
+                
                 }
-                else
+                else if(m==1)
                 {
-                    m=0;
-                    system("killall -9 mplayer");
                     
-                    fp = popen("/dev/mplayer /run/Redial.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
+                     fp = popen("/dev/mplayer /run/gui_mie.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
+                                    
                 }//下
+            
             }
             if(x > 745 && x < 764 && y > 201 && y < 220)
             {
@@ -158,11 +164,11 @@ int video(int argc, char const *argv[])
 
             if(x > 644 && x < 678 && y > 380 && y < 410)
             {
-                send_cmd(fd_fifo,"volume -10\n");//音量-10
+                send_cmd(fd_fifo,"volume -50\n");//音量-10
             }
-            if(x > 740 && x <772 && y > 348 && y < 410)
+            if(x > 735 && x <772 && y > 380 && y < 410)
             {
-                send_cmd(fd_fifo,"volume +10\n");//音量+10
+                send_cmd(fd_fifo,"volume +50\n");//音量+10
             }
 
             if(x > 770 && x < 800 && y > 0 && y < 30)
