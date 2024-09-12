@@ -1,14 +1,17 @@
-#include"main.h"
-
-/*
-
-    arm-linux-gcc ./src/*.c -I ./inc -o ./bin/b1
-    ./bin/b1
-
-*/
+#include "main.h"
 
 int main()
 {
-    music();//音乐函数
+    
+
+    /*项目初始化*/
+    project_init();
+
+    /*主界面*/
+    jinru();
+
+    /*项目结束释放*/
+    project_free();
+
     return 0;
 }

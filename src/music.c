@@ -24,6 +24,7 @@ void xy()//消抖部分
 
 
 int send_cmd_music(  int fd_fifo , const char * cmd )
+int send_cmd_music(  int fd_fifo , const char * cmd )
 {
 
     int ret_val = write(fd_fifo , cmd , strlen(cmd) );
@@ -39,7 +40,7 @@ int send_cmd_music(  int fd_fifo , const char * cmd )
 }
 
 
-int music()
+int music1()
 {
     int  ret_val ;
     // 创建用于发送控制指令的管道文件
@@ -88,6 +89,7 @@ int music()
     int i=0;//输入
     //int n = 0;//播放/暂停
     int m = 0;//视频选择
+    show_1152000bmp("music2.bmp", FB);
     show_1152000bmp("music2.bmp", FB);
     while(1)//开始输入命令
     {
@@ -204,6 +206,7 @@ int music()
         {      
             case 1:
             fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
+            fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
             break;
             case 2:
             send_cmd_music( fd_fifo , "pause\n" );//暂停
@@ -212,6 +215,7 @@ int music()
             if(m == 0)
             {
                 system("killall -9 /dev/mplayer");//结束播放器
+                fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
                 fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
                 m = 1;
             }
