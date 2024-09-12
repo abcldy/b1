@@ -1,25 +1,30 @@
 #include "main.h"
 
-int game()
+void game()
 {
-	int x,y;
-	project_init();
-	
-	show_1152000bmp("kaishi.bmp", FB); //写入游戏开始界面
-	project_touch();
+	// project_init();
+    show_1152000bmp("kaishi.bmp", FB); //写入游戏开始界面
+	while(1){
+    
+    project_touch();
     if(touch.type == EV_KEY && touch.code == BTN_TOUCH && touch.value == 0)
     {
-        printf("yyyyy");
-    //     if(1)
-    // {
-    //     //banqiu.c
-    // }
-    // if(2)
-    // {
-    //     flybird();//flybird.c
-    // }
+        // printf("(%d,%d)\n",x,y);
+        
+    if(x>221&&x<600 && y>112&&y<192)
+    {
+        ballgame();
     }
-    
-	return 0;
+    if(x>233&&x<614 && y>253&&y<340)
+    {
+        flybird();//flybird.c
+    }
+    // else
+    // {
+    //     break;
+    // }
+
+    }
+    }
 }
 

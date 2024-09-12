@@ -8,7 +8,7 @@
 #define FIFO_PATH "/tmp/myFifo"
 
 
-int send_cmd(  int fd_fifo , const char * cmd )
+int send_cmd_music(  int fd_fifo , const char * cmd )
 {
 
     int ret_val = write(fd_fifo , cmd , strlen(cmd) );
@@ -24,7 +24,7 @@ int send_cmd(  int fd_fifo , const char * cmd )
 }
 
 
-int music()
+int music1()
 {
     int  ret_val ;
     // 创建用于发送控制指令的管道文件
@@ -53,9 +53,9 @@ int music()
         perror("popen error");
         return -1 ;
     }
-    show_1152000bmp("music2.bmp", FB);
-{
-    printf("视频正在播放....\n");
+    
+
+    printf("音频正在播放....\n");
 
     // 打开用于发送指令的管道文件
     int fd_fifo = open(FIFO_PATH , O_RDWR );
@@ -73,6 +73,7 @@ int music()
     int i=1;//输入
     int n = 0;//播放/暂停
     int m = 0;//视频选择
+    show_1152000bmp("music2.bmp", FB);
     while(1)//开始输入命令
     {
         printf("1.播放 2.暂停/继续 3.下一个视频 4.退出 5.快进5s 6.退回5s \n");
@@ -108,32 +109,32 @@ int music()
         switch (i)
         {
             case 1:
-            fp = popen("/dev/mplayer   /mnt/hgfs/share_data/project/music/music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
+            fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
             break;
             case 2:
-            send_cmd( fd_fifo , "pause\n" );//暂停
+            send_cmd_music( fd_fifo , "pause\n" );//暂停
             break;
             case 3:
             if(m == 0)
             {
                 system("killall -9 /dev/mplayer");//结束播放器
-                fp = popen("/dev/mplayer   /mnt/hgfs/share_data/project/music/music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
+                fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
                 m = 1;
             }
             else
             {
                 system("killall -9 /dev/mplayer");//结束播放器
-                fp = popen("/dev/mplayer   /mnt/hgfs/share_data/project/music/music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
+                fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
                 m = 0;
             }
             break;
             case 4:
-            send_cmd( fd_fifo , "quit\n" );
+            send_cmd_music( fd_fifo , "quit\n" );
             break;
             case 5:
-            send_cmd( fd_fifo , "seek +5\n" );
+            send_cmd_music( fd_fifo , "seek +5\n" );
             case 6:
-            send_cmd( fd_fifo , "seek -5\n" );
+            send_cmd_music( fd_fifo , "seek -5\n" );
             break;
             case 0:
             continue;
@@ -150,5 +151,6 @@ int music()
 
      return 0;
     }
-}
+
+return 0;
 }
