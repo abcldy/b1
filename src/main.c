@@ -15,3 +15,7 @@ int main()
 
     return 0;
 }
+
+/*
+    arm-linux-gcc ./src/*.c -I ./inc -lpthread -o ./bin/b1
+*/

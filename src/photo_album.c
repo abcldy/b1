@@ -1,90 +1,95 @@
 #include"main.h"
 #define NUM 3
-char * arr_bmpname[NUM] = {"goball.bmp","111.bmp","gameover.bmp"};//图片名
+char * arr_bmpname[NUM] = {"b2.bmp","111.bmp","gameover.bmp"};//图片名
 int i = 0;//记录此刻播放的图片
 
+typedef struct photo_hub//图片名结构体
+{
+    int no;
+    char bmp_name[30];
+    struct photo_hub* next;
+}ph;
 
-/*
-功能： 获取一次划动的方向或点击坐标
-返回值：1-->右滑; 2-->左滑; 3-->上滑; 4-->下滑; 5-->点击（获取到点击坐标）
- 
-*/
-// int get_slide()
-// {
-// 	int x1, x2, y1, y2;
-// 	int flag = 0;		//记录当前获取到的坐标的个数 : 0 --> 无;  1-->横坐标;	2-->横纵坐标
 
-	
-// 	//2, 读取分析触摸屏数据 -->获取起点坐标
-// 	while(1)	
-// 	{
-// 		read(touch_fd, &touch, sizeof(touch));		//如果触摸屏文件中没有数据-->程序在此阻塞!
-// 		if(touch.type == EV_ABS && touch.code == ABS_X && flag == 0)
-// 		{
-// 			flag = 1;
-// 			x1 = touch.value *800/1024;		//对获取的坐标进行等比例换算
-// 		}
-// 		if(touch.type == EV_ABS && touch.code == ABS_Y && flag == 1)
-// 		{
-// 			flag = 2;
-// 			y1 = touch.value *480/600;
-// 		}	
-// 		if(flag == 2)		//获取的第一个坐标就是起点坐标
-// 		{
-// 			flag = 0;
-// 			printf("start : (%d, %d)\n", x1, y1);
-// 			break;		
-// 		}			
-// 	}
-// 	x2 = x1;	y2 = y1;
-// 	//获取终点坐标 (x2, y2)
-// 	while(1)	
-// 	{
-// 		read(touch_fd, &touch, sizeof(touch));		//如果触摸屏文件中没有数据-->程序在此阻塞!
-// 		if(touch.type == EV_ABS && touch.code == ABS_X )
-// 		{
-// 			x2 = touch.value *800/1024;		//对获取的坐标进行等比例换算
-// 		}
-// 		if(touch.type == EV_ABS && touch.code == ABS_Y )
-// 		{
-// 			y2 = touch.value *480/600;
-// 		}	
-// 		if(touch.type == EV_KEY && touch.code == BTN_TOUCH && touch.value == 0)//压力值为0的时候此时获取终点坐标
-// 		{
-// 			printf("end : (%d, %d)\n", x2, y2);
-// 			break;	
-// 		}			
-// 	}
-// 	//判断终点位置相对起点的位置
-// 	if(x2>x1 && (y2-y1)*(y2-y1) < (x2-x1)*(x2-x1))	//右划
-// 	{
-// 		printf("right slide -->\n");
-// 		return 1;
-// 	}
-// 	if(x2<x1 && (y2-y1)*(y2-y1) < (x2-x1)*(x2-x1))	//左划
-// 	{
-// 		printf("left slide <--\n");
-// 		return 2;
-// 	}	
-// 	if(y2<y1 && (y2-y1)*(y2-y1) > (x2-x1)*(x2-x1))	//上划
-// 	{
-// 		printf("up slide ^\n");
-// 		return 3;
-// 	}	
-// 	if(y2>y1 && (y2-y1)*(y2-y1) > (x2-x1)*(x2-x1))	//下划
-// 	{
-// 		printf("down slide v\n");
-// 		return 4;
-// 	}
-// 	if(x1 == x2 && y1 == y2)	//不划
-// 	{
-// 		printf("click !\n");
-// 		x = x1;
-// 		y = y1;
-// 		return 5;
-// 	}		
-// }
- 
+ph* photo_list(char*name[NUM])//根据数组创建链表
+{
+    ph*s,*r;
+    ph* head = (ph*)malloc(sizeof(ph));//创建头节点
+
+    head->no = -1;
+    r = head;//r指向尾节点，开始时指向头指针
+
+    for(int i=0;i<NUM;i++)
+    {
+        s = (ph*)malloc(sizeof(ph));
+        s->no = i;
+        strcpy(s->bmp_name,arr_bmpname[i]);
+        r->next = s;
+        r = s;
+    }
+    //r->next = NULL;//最后一个元素next置空
+    r->next = head;//构成循环链表
+    return head;
+}
+void show_list(ph* head)//展示列表
+{
+    printf("list is :\n");
+    ph *a = head;
+    if(a == NULL)
+    {
+        printf("head is empty!");
+    }
+    else
+    {
+        printf("head : no = %d ,bmp_name = %s\n",a->no,a->bmp_name);
+        a = a->next;
+        while(a != head)
+        {
+            printf("no = %d ,bmp_name = %s\n",a->no,a->bmp_name);
+            a = a->next;
+        }
+    }
+}
+
+void free_space(ph* head)//释放空间
+{
+    ph *p = head->next;
+    ph* q = p->next;
+    while(p != head)
+    {
+        printf("node no = %d is free\n",p->no);
+        free(p);
+        p = q;
+        q = q->next;
+    }
+    printf("node no = %d is free\n",p->no);
+    free(p);
+    printf("list is free now!\n");
+}
+
+
+void show_album(int i,ph* head)//展示图片
+{
+    ph* p = head;
+    if(head == NULL)
+    {
+        printf("list is empty,can't read !\n");
+        return ;
+    }
+    while(1)
+    {
+        if(p->no != i)
+        {
+            p = p->next;
+        }
+        else
+        {
+            break;
+        }
+    }
+    show_1152000bmp(p->bmp_name,FB);
+}
+
 int getslide()
 {
     int flag = 0;//获得的坐标的数量
@@ -118,14 +123,15 @@ int getslide()
     if(x2 == x1 && y2 == y1){return 5;}//点击
 }
 
-
-int touchscreen()
+int touchscreen()//相册功能
 {
 
-	
+    // int j = 0;
+    ph* pho = photo_list(arr_bmpname);//初始化链表
 	while(1)
 	{
         int list = getslide();//记录滑动的类型
+        printf("list = %d\n",list);
         if(list == 5)
         {
             project_touch();
@@ -135,26 +141,27 @@ int touchscreen()
         if(list == 1){i--;}
         if(list == 2){i++;}
         if(list == 3){break;}
-
+        
 
         if(i == -1){i = NUM - 1;}
         if(i == NUM){i = 0;}
 
         
-        //usleep(3000);//延迟1ms
-        // if(x <= 40 && y <= 40)
-        // {
-        //     printf("退出循环\n");
-        //     break;
-        // }
-        show_1152000bmp(arr_bmpname[i],FB);
+        // if(i == j){continue;}//如果没有动作则跳出本次循环
+        // //show_1152000bmp(arr_bmpname[i],FB);
+
+        show_list(pho);//查看列表
+        show_album(i,pho);//展示图片
         printf("i = %d\n",i);   
 
+        // j  = i;
     }
-	  
+	printf("out of loop\n");
+    free_space(pho);
+    
 }
 
-int photo_album()
+int photo_album()//相册部分
 {
     show_1152000bmp(arr_bmpname[0], FB);//显示第一张图片
     touchscreen();
