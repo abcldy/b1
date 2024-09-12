@@ -3,88 +3,33 @@
 char * arr_bmpname[NUM] = {"goball.bmp","111.bmp","gameover.bmp"};//图片名
 int i = 0;//记录此刻播放的图片
 
+typedef struct photo_hub//图片名结构体
+{
+    int i;
+    char*bmp_name;
+    struct photo_hub* next;
+}ph;
 
-/*
-功能： 获取一次划动的方向或点击坐标
-返回值：1-->右滑; 2-->左滑; 3-->上滑; 4-->下滑; 5-->点击（获取到点击坐标）
- 
-*/
-// int get_slide()
+
+// ph* photo_list(char*name[NUM][20])
 // {
-// 	int x1, x2, y1, y2;
-// 	int flag = 0;		//记录当前获取到的坐标的个数 : 0 --> 无;  1-->横坐标;	2-->横纵坐标
+//     for(int i = NUM -1;i>=0;i--)
+//     {
+//         (ph*)node = (ph*)malloc(sizeof(ph));//当前节点
+//         node->i = i;
+//         node->bmp_name = name[i];
+//         node->next = NULL;
 
-	
-// 	//2, 读取分析触摸屏数据 -->获取起点坐标
-// 	while(1)	
-// 	{
-// 		read(touch_fd, &touch, sizeof(touch));		//如果触摸屏文件中没有数据-->程序在此阻塞!
-// 		if(touch.type == EV_ABS && touch.code == ABS_X && flag == 0)
-// 		{
-// 			flag = 1;
-// 			x1 = touch.value *800/1024;		//对获取的坐标进行等比例换算
-// 		}
-// 		if(touch.type == EV_ABS && touch.code == ABS_Y && flag == 1)
-// 		{
-// 			flag = 2;
-// 			y1 = touch.value *480/600;
-// 		}	
-// 		if(flag == 2)		//获取的第一个坐标就是起点坐标
-// 		{
-// 			flag = 0;
-// 			printf("start : (%d, %d)\n", x1, y1);
-// 			break;		
-// 		}			
-// 	}
-// 	x2 = x1;	y2 = y1;
-// 	//获取终点坐标 (x2, y2)
-// 	while(1)	
-// 	{
-// 		read(touch_fd, &touch, sizeof(touch));		//如果触摸屏文件中没有数据-->程序在此阻塞!
-// 		if(touch.type == EV_ABS && touch.code == ABS_X )
-// 		{
-// 			x2 = touch.value *800/1024;		//对获取的坐标进行等比例换算
-// 		}
-// 		if(touch.type == EV_ABS && touch.code == ABS_Y )
-// 		{
-// 			y2 = touch.value *480/600;
-// 		}	
-// 		if(touch.type == EV_KEY && touch.code == BTN_TOUCH && touch.value == 0)//压力值为0的时候此时获取终点坐标
-// 		{
-// 			printf("end : (%d, %d)\n", x2, y2);
-// 			break;	
-// 		}			
-// 	}
-// 	//判断终点位置相对起点的位置
-// 	if(x2>x1 && (y2-y1)*(y2-y1) < (x2-x1)*(x2-x1))	//右划
-// 	{
-// 		printf("right slide -->\n");
-// 		return 1;
-// 	}
-// 	if(x2<x1 && (y2-y1)*(y2-y1) < (x2-x1)*(x2-x1))	//左划
-// 	{
-// 		printf("left slide <--\n");
-// 		return 2;
-// 	}	
-// 	if(y2<y1 && (y2-y1)*(y2-y1) > (x2-x1)*(x2-x1))	//上划
-// 	{
-// 		printf("up slide ^\n");
-// 		return 3;
-// 	}	
-// 	if(y2>y1 && (y2-y1)*(y2-y1) > (x2-x1)*(x2-x1))	//下划
-// 	{
-// 		printf("down slide v\n");
-// 		return 4;
-// 	}
-// 	if(x1 == x2 && y1 == y2)	//不划
-// 	{
-// 		printf("click !\n");
-// 		x = x1;
-// 		y = y1;
-// 		return 5;
-// 	}		
+//         i--;
+//         (ph*)node = (ph*)malloc(sizeof(ph));//下一节点
+//         node->i = i;
+//         node->bmp_name = name[i];
+//         node->next = NULL;
+
+
+//     }
 // }
- 
+
 int getslide()
 {
     int flag = 0;//获得的坐标的数量
