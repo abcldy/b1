@@ -13,6 +13,7 @@
 #include <linux/input.h>
 #include"stdlib.h"
 #include <string.h>
+#include <pthread.h>
 
 /*全局变量*/
 int lcd_fd;//LCD文件描述符
@@ -22,7 +23,6 @@ int *FB;//内存映射指针
 //char * arr_bmpname[5] = {"111.bmp","112.bmp","113.bmp","bp.bmp","../b1.bmp"};//图片名
 
 
-/*宏定义*/
 
 /*结构体和结构体定义*/
 struct input_event touch;//触摸屏
