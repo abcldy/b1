@@ -30,10 +30,10 @@ struct input_event touch;//触摸屏
 int project_init();/*项目初始化*/
 int project_free();/*项目释放*/
 int interface();/*主机面函数*/
-void show_bmp();/*图片展示*/
+int show_1152000bmp(char *pathname, int *show_1152000bmp_fd);/*图片展示*/
 void project_touch();/*触摸屏函数*/
 
-void music();//音乐函数
+int music();//音乐函数
 
 // int project_music();/*音乐函数*/
 // int project_video();/*视频函数*/
