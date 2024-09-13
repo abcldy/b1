@@ -1,19 +1,19 @@
 #include "main.h"
 
 
-int x5,y5;
-void xy()//消抖部分
-{
-    int flag = 0;//获得的坐标的数量
-    while(1)
-    {
-        read(touch_fd , &touch , sizeof(touch));
-        if (touch.type == EV_ABS && touch.code == ABS_X && flag == 0) {x5 = touch.value*800/1024;flag = 1;}
-        if (touch.type == EV_ABS && touch.code == ABS_Y && flag == 1) {y5 = touch.value*480/600;flag = 2;}
-        if(flag == 2){flag = 0;break;}
-
-    }
-}
+// int x,y;
+// void xy()//消抖部分
+// {
+//     int flag = 0;//获得的坐标的数量
+//     while(1)
+//     {
+//         read(touch_fd , &touch , sizeof(touch));
+//         if (touch.type == EV_ABS && touch.code == ABS_X && flag == 0) {x = touch.value*800/1024;flag = 1;}
+//         if (touch.type == EV_ABS && touch.code == ABS_Y && flag == 1) {y = touch.value*480/600;flag = 2;}
+//         if(flag == 2){flag = 0;break;}
+       
+//     }
+// }
 
 
 /*
@@ -57,7 +57,7 @@ int music1()
 
     // 直接使用 popen 来播放音视频
     FILE * fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
-    //FILE * fp = popen("/usr/bin/madplay music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
+    // FILE * fp = popen("/usr/bin/madplay music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
     /*
         /dev/mplayer  3.avi  -geometry 100:200 -zoom -x 400 -y 200 &
         -geometry 100:200   设置视频播放的位置 
@@ -90,6 +90,7 @@ int music1()
     //int n = 0;//播放/暂停
     int m = 0;//视频选择
     show_1152000bmp("music2.bmp", FB);
+ 
     while(1)//开始输入命令
     {
         // printf("1.播放 2.暂停/继续 3.下一个视频 4.退出 5.快进5s 6.退回5s \n");
@@ -99,36 +100,60 @@ int music1()
         // if (touch.type == EV_KEY && touch.code == BTN_TOUCH && touch.value == 0)
         // {
 
-        xy();
-            
-        if(y5>360&y5<400)
+        // xy();
+        project_touch();
+        //  if(x>0&&y>0)
+        //     {
+        //     sleep(1);
+        //     break;
+        //     }
+        if(y>360&y<400)
         {
-            if(x5>250&x5<285)
-            {i=6;}
-            if(x5>320&x5<355)
-            {i=1;}
-            if(x5>380&x5<415)
-            {i=2;}
-            if(x5>450&x5<485)
-            {i=5;}
-            if(x5>770&y5<50)
-            {
-                i=4;
-            }
+            if(x>250&x<285)
+            {i=6;}//前进10
+            if(x>320&x<355)
+            {i=1;}//播放
+            if(x>360&x<415)
+            {i=2;}//暂停
+            if(x>450&x<485)
+            {i=5;}//倒退10
+            if(x>560&x<590)
+            {i=3;}//切换
 
+        } 
+        // if (x>=700 && x<=800 && y>=0 && y<=100)//退出
+        // {
+        //     printf("退出\n");
+           
+        //     break;
+        // }
+        if (touch.type == EV_KEY && touch.code == BTN_TOUCH && touch.value == 0)
+        {
+            if (x>=700 && x<=800 && y>=0 && y<=100)//退出
+            {
+                printf("退出\n");
+                sleep(1);
+                interface();
+                break;
+            }
+ 
         }
-        // if(x5>770&y5<50)
+        // if(x>720&y<50)
+        //     {
+        //         i=4;
+        //     }
+        // if(x>770&y<50)
         // {
         // system("killall -9 mplayer");
         //     interface();
         //     break;
         // }
         //xy();
-        printf("%d,%d\n",x5,y5);
+        printf("%d,%d\n",x,y);
             
             
             // xy();
-            // printf("%d,%d\n",x5,y5);
+            // printf("%d,%d\n",x,y);
             // // if(touch.type == EV_KEY && touch.code == BTN_TOUCH && touch.value == 0)
             // // {
             // if(x > 643 && x < 662 && y > 201 && y < 220)
@@ -201,10 +226,12 @@ int music1()
         //         }  
 
         //     }
+   
         switch (i)
         {      
             case 1:
             fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
+            // fp = popen("/usr/bin/madplay music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
             break;
             case 2:
             send_cmd_music( fd_fifo , "pause\n" );//暂停
@@ -214,19 +241,25 @@ int music1()
             {
                 system("killall -9 /dev/mplayer");//结束播放器
                 fp = popen("/dev/mplayer music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
+                // fp = popen("/usr/bin/madplay music.mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
                 m = 1;
             }
             else
             {
                 system("killall -9 /dev/mplayer");//结束播放器
                 fp = popen("/dev/mplayer music(1).mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
+                // fp = popen("/usr/bin/madplay music(1).mp3 -quiet -slave -input file=/tmp/myFifo &", "r");
                 m = 0;
             }
             break;
             case 4:
-            send_cmd_music( fd_fifo , "quit\n" );
+            system("killall -9 /dev/dsp");
             interface();
             break;
+            // printf("%d",&x);
+            // send_cmd_music( fd_fifo , "quit\n" );
+
+            // break;
             case 5:
             send_cmd_music( fd_fifo , "seek +10\n" );
             break;
@@ -244,6 +277,7 @@ int music1()
         // }
 
     }//while
+    interface();
     pause();
     return 0;
 }
