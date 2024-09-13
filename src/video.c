@@ -59,6 +59,7 @@ int*plcd;
 */
 int exitFlag = 0;
 int startstopFlag = 0;
+int volume = 0;
 
 int send_cmd(  int fd_fifo , const char * cmd )
 {
@@ -90,7 +91,7 @@ int send_cmd(  int fd_fifo , const char * cmd )
 // {
 //     char tempPath[100];
 //     // TOUCH touchVolume = touchInit();
-//     int volume = 0;
+//     pthread_detach(pthread_self());
     
 //     while(1)
 //     {
@@ -179,13 +180,14 @@ int video(int argc, char const *argv[])
     */
     int i=0;//输入
 
+    show_location_bmp("bofangqi.bmp",600,0,FB);
     // pthread_t mythread;//线程
     // pthread_create(&mythread,NULL,changeVolume,NULL);
 
-    show_location_bmp("bofangqi.bmp",600,0,FB);
+
     while(1)//开始输入命令
     {   
-        int mm=0;//视频选择
+        bool mm;//视频选择
         int n = 0;//播放/暂停
         
         // printf("1.播放 2.暂停/继续 3.下一个视频 4.退出 5.快进5s 6.退回5s \n");
@@ -198,15 +200,15 @@ int video(int argc, char const *argv[])
             if(x > 695 && x < 712 && y > 123 && y < 136)
             {
                 send_cmd(fd_fifo,"quit\n");
-                // m=~m;
+                mm = !mm;
                 printf("%d\n",&mm);
-                if(mm==0)
+                if(mm)
                 {
                     
                      fp = popen("/dev/mplayer /run/your_name.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
                 
                 }
-                else if(mm==1)
+                else if(!mm)
                 {
                     
                      fp = popen("/dev/mplayer /run/gui_mie.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
@@ -226,8 +228,7 @@ int video(int argc, char const *argv[])
                if(mm==0)
                 { 
                     
-                     fp = popen("/dev/mplayer /run/your_name.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上
-                                
+                     fp = popen("/dev/mplayer /run/your_name.mp4 -quiet -slave -geometry 0:0 -zoom -x 600 -y 480 -input file=/tmp/myFifo &", "r");//上         
                 
                 }
                 else if(mm==1)

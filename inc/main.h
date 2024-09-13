@@ -14,6 +14,7 @@
 #include"stdlib.h"
 #include <string.h>
 #include <pthread.h>
+#include <stdbool.h>
 
 /*全局变量*/
 int lcd_fd;//LCD文件描述符
