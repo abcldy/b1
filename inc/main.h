@@ -11,8 +11,9 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <linux/input.h>
-#include"stdlib.h"
+#include<stdlib.h>
 #include <string.h>
+#include <dirent.h>//目录IO
 
 /*全局变量*/
 int lcd_fd;//LCD文件描述符
